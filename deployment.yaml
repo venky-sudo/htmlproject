@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployment-2
+  labels:
+    app: static
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: static
+  template:
+    metadata:
+      labels:
+        app: static
+    spec:
+      containers:
+      - name: con-1
+        image: kasikotnani423/image1:v1
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: static-clusterip-1
+spec:
+  type: ClusterIP
+  selector:
+    app: static
+  ports:
+    - port: 8080
+      targetPort: 80
